@@ -9,10 +9,27 @@ struct Tnode
 };
 typedef struct Tnode treeNode;
 
-treeNode* parent(treeNode *T, treeNode *n, treeNode *parent)
+treeNode* parent(treeNode *T, treeNode *n, treeNode *P)
 {
-    parent(T->LeftMostChild,n,T);
-    parent(T->rightSibling,n,parent);
+	if(T==n)
+	{
+		return P;
+	}
+	else if(T!=NULL)
+	{
+		treeNode* temp = T;
+  	P=parent(T->LeftMostChild,n,T);
+		while(temp!=NULL)
+			{
+				if(temp == n)
+				{
+					return P;
+				}
+				temp = temp->rightSibling;
+			}
+  	P=parent(T->rightSibling,n,P);
+		return P;
+	}
 }
 
 int main()
