@@ -32,6 +32,16 @@ treeNode* parent(treeNode *T, treeNode *n, treeNode *P)
 	}
 }
 
+treeNode* leftmostchild(T, n)
+{
+	return n->LeftMostChild;
+}
+
+treeNode* rightsibling(T, n)
+{
+	return n->rightSibling;
+}
+
 int main()
 {
     treeNode *root =  (treeNode*) malloc(sizeof(treeNode));
