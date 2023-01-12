@@ -67,7 +67,7 @@ int main()
     node6->rightSibling = node7; node6->LeftMostChild = NULL;
 
     node7->rightSibling = node8; node7->LeftMostChild = NULL;
-
-		treeNode* temp = parent(root,node5,root);
+	
+    treeNode* temp = parent(root,node5,root);
     printf("%i",temp->id);
 }
