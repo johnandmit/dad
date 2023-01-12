@@ -31,17 +31,6 @@ treeNode* parent(treeNode *T, treeNode *n, treeNode *P)
 		return P;
 	}
 }
-
-treeNode* leftmostchild(treeNode* T, treeNode* n)
-{
-	return n->LeftMostChild;
-}
-
-treeNode* rightsibling(treeNode* T, treeNode* n)
-{
-	return n->rightSibling;
-}
-
 int main()
 {
     treeNode *root =  (treeNode*) malloc(sizeof(treeNode));
@@ -65,7 +54,6 @@ int main()
     node7->id = 7;//h
     node8->id = 8;//i
     node9->id = 9;//j
-
     root->rightSibling = NULL; root->LeftMostChild = node1;
 
     node1->rightSibling = node2; node1->LeftMostChild = node3;
@@ -80,6 +68,6 @@ int main()
 
     node7->rightSibling = node8; node7->LeftMostChild = NULL;
 
-    printf("%i",parent(root,node2,root)->id);
-    printf(" %i",rightsibling(root, node2)->id);
+		treeNode* temp = parent(root,node5,root);
+    printf("%i",temp->id);
 }
