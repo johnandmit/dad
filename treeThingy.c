@@ -32,12 +32,12 @@ treeNode* parent(treeNode *T, treeNode *n, treeNode *P)
 	}
 }
 
-treeNode* leftmostchild(T, n)
+treeNode* leftmostchild(treeNode* T, treeNode* n)
 {
 	return n->LeftMostChild;
 }
 
-treeNode* rightsibling(T, n)
+treeNode* rightsibling(treeNode* T, treeNode* n)
 {
 	return n->rightSibling;
 }
@@ -81,4 +81,5 @@ int main()
     node7->rightSibling = node8; node7->LeftMostChild = NULL;
 
     printf("%i",parent(root,node2,root)->id);
+    printf(" %i",rightsibling(root, node2)->id);
 }
