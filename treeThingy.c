@@ -73,7 +73,7 @@ int main()
 
     node3->rightSibling = node4; node3->LeftMostChild = NULL;
 
-    node5->LeftMostChild = node5; node5->rightSibling = node9;
+    node5->LeftMostChild = node6; node5->rightSibling = node9;
 
     node6->rightSibling = node7; node6->LeftMostChild = NULL;
 
