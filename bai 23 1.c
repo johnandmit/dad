@@ -9,6 +9,32 @@ struct Tnode
 };
 typedef struct Tnode treeNode;
 
+int max(int a, int b)
+{
+    return (a > b) ? a : b;
+}
+
+int Depth(treeNode *root)
+{
+    if (root != NULL)
+    {
+        return max(Depth(root->left), Depth(root->right)) + 1;
+    }
+    return 0;
+}
+
+int countNode(treeNode *node)
+{
+	if(node==NULL)
+		return 0;
+    if(node->left==NULL || node->right==NULL)
+        return 1;
+    int count = 0;
+	count += countNode(node->left);
+	count += countNode(node->right);
+    return count;
+}
+
 int PreOrder(treeNode *node)
 {
 	if(node==NULL)
@@ -69,5 +95,5 @@ int main()
 
     node5->left = NULL; node5->right = NULL;
 
-		postOrder(root);
+	printf("%i",countNode(root));
 }
