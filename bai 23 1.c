@@ -23,15 +23,15 @@ int Depth(treeNode *root)
     return 0;
 }
 
-int countNode(treeNode *node)
+int countNode(treeNode *root)
 {
-	if(node==NULL)
+	if(root==NULL)
 		return 0;
-    if(node->left==NULL || node->right==NULL)
+    if(root->left==NULL || root->right==NULL)
         return 1;
     int count = 0;
-	count += countNode(node->left);
-	count += countNode(node->right);
+	count += countNode(root->left);
+	count += countNode(root->right);
     return count;
 }
 
