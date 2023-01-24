@@ -9,6 +9,30 @@ struct Tnode
 };
 typedef struct Tnode treeNode;
 
+treeNode *makeTreeNode(int x, treeNode *parent)
+{
+	treeNode *temp =  (treeNode*) malloc(sizeof(treeNode));
+	temp->id = x;
+	temp->left = NULL;
+	temp->right = NULL;
+	if(parent != NULL)
+	{
+		if(parent->left == NULL)
+		{
+			parent->left = temp;
+		}
+		else if(parent->right == NULL)
+		{
+			parent->right = temp;
+		}
+		else
+		{
+			printf("node with label %i can't have any more child",parent->id);
+		}
+	}
+	return temp;
+}
+
 int max(int a, int b)
 {
     return (a > b) ? a : b;
