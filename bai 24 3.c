@@ -33,21 +33,21 @@ treeNode *makeTreeNode(int x, treeNode *parent)
     return temp;
 }
 
-treeNode *nodeFinder(int id, treeNode *node)
+treeNode *nodeFinder(int id, treeNode *root)
 {
-    if (node != NULL)
+    if (root != NULL)
     {
-        if (node->id == id)
+        if (root->id == id)
         {
-            return node;
+            return root;
         }
         treeNode *temp;
-        temp = nodeFinder(id, node->left);
+        temp = nodeFinder(id, root->left);
         if (temp != NULL && temp->id == id)
         {
             return temp;
         }
-        temp = nodeFinder(id, node->right);
+        temp = nodeFinder(id, root->right);
         if (temp != NULL && temp->id == id)
         {
             return temp;
@@ -56,17 +56,17 @@ treeNode *nodeFinder(int id, treeNode *node)
     return NULL;
 }
 
-void thingy(treeNode *root, int k)
+int thingy(treeNode *root, int k, treeNode *OG)
 {
-    if (root != NULL && k - root->id > 0)
+    if (root != NULL && k - root->id > 0 && root->id*2 != k)
     {
-        treeNode *temp = nodeFinder(k - root->id, root);
+        treeNode *temp = nodeFinder(k - root->id, OG);
         if (temp != NULL)
         {
-            printf("%i + %i = %i", root->id, temp->id, k);
+            printf("%i + %i = %i\n", root->id, temp->id, k);
         }
-        thingy(root->left, k);
-        thingy(root->right, k);
+        thingy(root->left, k,OG);
+        thingy(root->right, k,OG);
     }
 }
 
@@ -78,5 +78,5 @@ int main()
     treeNode *node3 = makeTreeNode(4, node1);
     treeNode *node4 = makeTreeNode(5, node1);
     treeNode *node5 = makeTreeNode(6, node2);
-    thingy(root, 9);
+    thingy(root, 6,root);
 }
