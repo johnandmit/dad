@@ -82,8 +82,8 @@ int main()
     treeNode *root = makeTreeNode(1, NULL);
     treeNode *node1 = makeTreeNode(2, root);
     treeNode *node2 = makeTreeNode(3, root);
-    treeNode *node3 = makeTreeNode(4, node2);
+    treeNode *node3 = makeTreeNode(4, node1);
     treeNode *node4 = makeTreeNode(5, node1);
-    treeNode *node5 = makeTreeNode(6, node1);
+    treeNode *node5 = makeTreeNode(6, node2);
     cousinOf(root, root, node4);
 }
