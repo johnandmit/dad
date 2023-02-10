@@ -35,13 +35,13 @@ treeNode *makeTreeNode(int x, treeNode *parent)
     return temp;
 }
 
-void treePath(treeNode *root)
+void count_leaf(treeNode *root)
 {
     if (root != NULL)
     {
         total++;
-        treePath(root->left);
-        treePath(root->right);
+        count_leaf(root->left);
+        count_leaf(root->right);
     }
 }
 
@@ -53,6 +53,6 @@ int main()
     treeNode *node3 = makeTreeNode(4, node1);
     treeNode *node4 = makeTreeNode(5, node1);
     treeNode *node5 = makeTreeNode(6, node2);
-    treePath(root);
+    count_leaf(root);
     printf("%i",total);
 }
