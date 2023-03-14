@@ -1,38 +1,75 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void random_number(int n, int arr[])
+int binaryMan(int arr[], int key, int start, int end)
 {
-    for (int i = 0; i < n; i++)
+    int min = start, max = end - 1, mid;
+    while (min <= max)
     {
-        arr[i] = rand();
+        mid = (min + max) / 2;
+        if (key == arr[mid])
+        {
+            return mid;
+        }
+        else if (key > arr[mid])
+        {
+            min = mid + 1;
+        }
+        else
+        {
+            max = mid - 1;
+        }
     }
+    return -1;
 }
-
-// int is3Thing(int a, int b, int c)
-// {
-//     if (-1 *a == b && c > a)
-//     {
-//         return 1;
-//     }
-//     return 0;
-// }
 
 int is3Arr(int arr[], int n)
 {
-    int a=0,c=1;
-    for (int i = 0; a<c; i++)
+    for (int i = 0; i < n - 2; i++)
     {
-        a=arr[i];
-        c=arr[n-i-1];
-        for(int j = i;j<n;j++)
+        for (int j = i + 1; j < n - 1; j++)
         {
-            if(a==arr[j]*-1)
+            int a1 = arr[i];
+            int a2 = arr[j];
+            int a3 = 2 * a2 - a1;
+            if (binaryMan(arr, a3, j + 1, n) != -1)
             {
-                return 1;
+                printf("%i %i %i\n", a1, a2, a3);
             }
         }
-            
+    }
+    return 0;
+}
+
+int linearSearch(int arr[], int n, int key)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == key)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int noSort3Arr(int arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            int a1 = arr[i];
+            int a2 = arr[j];
+            if (a1 < a2)
+            {
+                int a3 = 2 * a2 - a1;
+                if (linearSearch(arr, n, a3) != -1)
+                {
+                    printf("%i %i %i\n", a1, a2, a3);
+                }
+            }
+        }
     }
     return 0;
 }
@@ -40,8 +77,10 @@ int is3Arr(int arr[], int n)
 int main()
 {
     int n = 10;
-    int arr[10]={-5,-4,-3,-1,0,2,3,5,8,10};
-    // random_number(n, arr);
-
-    printf("%i",is3Arr(arr,n));
+    int arr[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    int arr2[10] = {-7, -4, -3, -1, 1, 4, 6, 8, 10, 12};
+    is3Arr(arr2, n);
+    printf("\n\n");
+    noSort3Arr(arr, n);
+    // printf("%i", noSort3Arr(arr, n));
 }
