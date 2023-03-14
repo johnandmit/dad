@@ -3,6 +3,65 @@
 #include <time.h>
 
 
+void swap(int *p1, int *p2)
+{
+    int temp = *p1;
+    *p1 = *p2;
+    *p2 = temp;
+}
+
+void merge(int arr[], int f, int m, int l)
+{
+    int first1 = f;
+    int first2 = m + 1;
+    int temp[l - f + 1];
+    int i = 0;
+
+    while (first1 <= m && first2 <= l)
+    {
+        if (arr[first1] < arr[first2])
+        {
+            temp[i] = arr[first1];
+            first1++;
+        }
+        else
+        {
+            temp[i] = arr[first2];
+            first2++;
+        }
+        i++;
+    }
+    while (first1 <= m)
+    {
+        temp[i] = arr[first1];
+        first1++;
+        i++;
+    }
+    while (first2 <= l)
+    {
+        temp[i] = arr[first2];
+        first2++;
+        i++;
+    }
+    for (int j = f; j <= l; j++)
+    {
+        arr[j] = temp[j - f];
+    }
+    
+}
+
+void mergeSort(int arr[], int f, int l)
+{
+    int m;
+    if (f < l)
+    {
+        m = (f + l) / 2;
+        mergeSort(arr, f, m);
+        mergeSort(arr, m + 1, l);
+        merge(arr, f, m, l);
+    }
+}
+
 void random_number(int n, int arr[])
 {
     for (int i = 0; i < n; i++)
@@ -54,7 +113,7 @@ int RECbinaryMan(int arr[], int min, int max, int key)
         {
             return mid;
         }
-        else if (key > mid)
+        else if (key > arr[mid])
         {
             return RECbinaryMan(arr, mid+1, max, key);
             
@@ -69,10 +128,17 @@ int RECbinaryMan(int arr[], int min, int max, int key)
 
 int main()
 {
-    int n = 1000;
+    int n = 10;
     int arr[n];
     random_number(n,arr);
-    int key = arr[70];
+    mergeSort(arr,0,n);
+    int key = arr[6];
+
+    for(int i = 0;i<n;i++)
+    {
+        printf("%i ",arr[i]);
+    }
+    printf("\n\n");
 
     printf("%i ",linearSearch(arr,n,key));
 
