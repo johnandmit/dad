@@ -125,28 +125,35 @@ treeNode *search(treeNode *root, int key)
     return root;
 }
 
-treeNode *LCA(treeNode *p, treeNode *q, treeNode *root)
+int LCA(treeNode *p, treeNode *q, treeNode *root)
 {
     if (root != NULL)
     {
+        int left = LCA(p, q, root->left);
+        int right = LCA(p, q, root->right);
+        if (left == -1 && right == -1)
+        {
+            return root->id;
+        }
+        if (left != -1 && left != -2)
+        {
+            return left;
+        }
+        else if (right != -1 && right != -2)
+        {
+            return right;
+        }
+
         if (root == p)
         {
-            return p;
+            return -1;
         }
         else if (root == q)
         {
-            return q;
-        }
-        else
-        {
-            treeNode *left = LCA(p, q, root->left);
-            treeNode *right = LCA(p, q, root->right);
-            if (left == p && right == q || left == q && right == p || left == root || right == root)
-            {
-                return root;
-            }
+            return -1;
         }
     }
+    return -2;
 }
 
 int main()
@@ -200,5 +207,5 @@ int main()
         printf("\n");
     }
 
-    printf("%i", LCA(node1,node4,root)->id);
+    printf("e  %i", LCA(node3, node4, root));
 }
