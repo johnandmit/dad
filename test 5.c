@@ -125,57 +125,54 @@ treeNode *search(treeNode *root, int key)
     return root;
 }
 
-int LCA(treeNode *p, treeNode *q, treeNode *root)
+int FindPath(treeNode *find, treeNode *root, int arr[])
 {
     if (root != NULL)
     {
-        int left = LCA(p, q, root->left);
-        int right = LCA(p, q, root->right);
-        if (left == -1 && right == -1)
+        int i = 0;
+        for (; arr[i] != '\0'; i++)
+            ;
+        arr[i] = root->id;
+        arr[i + 1] = '\0';
+        if(root==find)
         {
-            return root->id;
+            return 0;
         }
-        if (left != -1 && left != -2)
-        {
-            return left;
-        }
-        else if (right != -1 && right != -2)
-        {
-            return right;
-        }
+        FindPath(find, root->left, arr);
+        FindPath(find, root->right, arr);
+    }
+}
 
-        if (root == p)
+int LCA(treeNode* p,treeNode* q,treeNode* root)
+{
+    int arrP[100],arrQ[100];
+    arrP[0]='\0';
+    arrQ[0]='\0';
+    FindPath(p,root,arrP);
+    FindPath(q,root,arrQ);
+    for(int i=0;arrP[i]!='\0'&&arrQ[i]!='\0';i++)
+    {
+        if(arrP[i+1]!=arrQ[i+1])
         {
-            return -1;
-        }
-        else if (root == q)
-        {
-            return -1;
+            return arrP[i];
         }
     }
-    return -2;
+
 }
 
 int main()
 {
-    treeNode *root = (treeNode *)malloc(sizeof(treeNode));
-    treeNode *node1 = (treeNode *)malloc(sizeof(treeNode));
-    treeNode *node2 = (treeNode *)malloc(sizeof(treeNode));
-    treeNode *node3 = (treeNode *)malloc(sizeof(treeNode));
-    treeNode *node4 = (treeNode *)malloc(sizeof(treeNode));
-    treeNode *node5 = (treeNode *)malloc(sizeof(treeNode));
-    treeNode *node6 = (treeNode *)malloc(sizeof(treeNode));
+    treeNode *root = createNode(0);
+    treeNode *node1 = createNode(1);
+    treeNode *node2 = createNode(2);
+    treeNode *node3 = createNode(3);
+    treeNode *node4 = createNode(4);
+    treeNode *node5 = createNode(5);
+    treeNode *node6 = createNode(6);
     treeNode *node7 = (treeNode *)malloc(sizeof(treeNode));
     treeNode *node8 = (treeNode *)malloc(sizeof(treeNode));
     treeNode *node9 = (treeNode *)malloc(sizeof(treeNode));
     treeNode *node10 = (treeNode *)malloc(sizeof(treeNode));
-
-    root->id = 0;  // a
-    node1->id = 1; // b
-    node2->id = 2; // c
-    node3->id = 3; // d
-    node4->id = 4; // e
-    node5->id = 5; // f
 
     root->right = node2;
     root->left = node1;
@@ -195,17 +192,18 @@ int main()
     node5->left = NULL;
     node5->right = NULL;
 
+    int arr[100];
+    arr[0] = '\0';
+    printf("e  %i", LCA(node3, node1, root));
+
     for (int i = 0; i < height(root); i++)
     {
-        int arr[100];
         arr[0] = '\0';
         FindLayer(root, i, height(root), arr);
-        for (int i = 0; arr[i] != '\0'; i++)
+        for (int e = 0; arr[e] != '\0'; e++)
         {
-            printf("%i ", arr[i]);
+            printf("%i ", arr[e]);
         }
         printf("\n");
     }
-
-    printf("e  %i", LCA(node3, node4, root));
 }
