@@ -47,6 +47,45 @@ int Depth(treeNode *root)
     return 0;
 }
 
+int countNode(treeNode *root)
+{
+    if (root == NULL)
+        return 0;
+    if (root->left == NULL || root->right == NULL)
+        return 1;
+    int count = 0;
+    count += countNode(root->left);
+    count += countNode(root->right);
+    return count;
+}
+
+int PreOrder(treeNode *node)
+{
+    if (node == NULL)
+        return 0;
+    printf("%i ", node->id);
+    PreOrder(node->left);
+    PreOrder(node->right);
+}
+
+int inOrder(treeNode *node)
+{
+    if (node == NULL)
+        return 0;
+    inOrder(node->left);
+    printf("%i ", node->id);
+    inOrder(node->right);
+}
+
+int postOrder(treeNode *node)
+{
+    if (node == NULL)
+        return 0;
+    postOrder(node->left);
+    postOrder(node->right);
+    printf("%i ", node->id);
+}
+
 int height(treeNode *root)
 {
     if (root != NULL)
@@ -59,22 +98,19 @@ int height(treeNode *root)
     return 0;
 }
 
-void FindLayer(treeNode *root, int layer, int ogHeight, int arr[])
+int FindLayer(treeNode *root, int layer, int ogHeight)
 {
     if (root != NULL)
     {
         if (ogHeight - height(root) == layer)
         {
-            int i = 0;
-            for (; arr[i] != '\0'; i++)
-                ;
-            arr[i] = root->id;
-            arr[i + 1] = '\0';
+            printf("%i ", root->id);
+            return 0;
         }
         else
         {
-            FindLayer(root->left, layer, ogHeight, arr);
-            FindLayer(root->right, layer, ogHeight, arr);
+            FindLayer(root->left, layer, ogHeight);
+            FindLayer(root->right, layer, ogHeight);
         }
     }
 }
@@ -120,13 +156,7 @@ int main()
 
     for (int i = 0; i < height(root); i++)
     {
-        int arr[100];
-        arr[0] = '\0';
-        FindLayer(root, i, height(root), arr);
-        for (int i = 0; arr[i] != '\0'; i++)
-        {
-            printf("%i ", arr[i]);
-        }
+        FindLayer(root, i, height(root));
         printf("\n");
     }
 }
